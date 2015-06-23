@@ -41,7 +41,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.advicer.monitor.Main</mainClass>
+							<mainClass>com.advicer.monitor.Cli</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
