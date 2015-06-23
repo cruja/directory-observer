@@ -63,6 +63,7 @@ public class QueueProcessor implements Runnable {
 	}
 
 	private void process(MessagePojo msg) throws TimeoutException, IOException  {
+		
 
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("localhost");
