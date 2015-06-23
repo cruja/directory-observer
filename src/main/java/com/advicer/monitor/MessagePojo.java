@@ -1,3 +1,4 @@
+package com.advicer.monitor;
 
 public class MessagePojo {
 	

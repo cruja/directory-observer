@@ -1,3 +1,5 @@
+package com.advicer.monitor;
+
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
