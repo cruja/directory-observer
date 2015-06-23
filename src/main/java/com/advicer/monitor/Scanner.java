@@ -16,7 +16,7 @@ import java.util.Observable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Scanner extends Observable implements Runnable {
+public class Scanner extends Observable {
 
 	private static final Logger log = LoggerFactory.getLogger(Scanner.class);
 
@@ -75,7 +75,7 @@ public class Scanner extends Observable implements Runnable {
 
 				key = this.watcher.take();
 			} catch (InterruptedException e) {
-				log.debug(e.getMessage());
+				log.error(e.getMessage(), e);
 				return;
 			}
 
@@ -86,18 +86,19 @@ public class Scanner extends Observable implements Runnable {
 				msg.setFullPath(dir.toAbsolutePath().toString());
 
 				if (create && kind == StandardWatchEventKinds.ENTRY_CREATE) {
-					log.info("Creating a new file");
+//					log.info("Creating a new file");
 					msg.setAction("created");
 				} else if (delete && kind == StandardWatchEventKinds.ENTRY_DELETE) {
-					log.info("Deleting a file");
+//					log.info("Deleting a file");
 					msg.setAction("deleted");
 				} else if (edit && kind == StandardWatchEventKinds.ENTRY_MODIFY) {
-					log.info("Modifying a file");
+//					log.info("Modifying a file");
 					msg.setAction("modified");
-				}
-
-				else if (kind == StandardWatchEventKinds.OVERFLOW) {
-					log.info("Overflow occured");
+				} else if (kind == StandardWatchEventKinds.OVERFLOW) {
+//					log.info("Overflow occured");
+					continue;
+				} else {
+//					nothing to notify
 					continue;
 				}
 
@@ -110,18 +111,10 @@ public class Scanner extends Observable implements Runnable {
 				msg.setFile(filename.toString());
 				setChanged();
 				notifyObservers(msg);
-				// Details left to reader....
 			}
 
 			if (!key.reset()) {
 				break;
-			}
-
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				log.debug(e.getMessage());
-				e.printStackTrace();
 			}
 		}
 	}

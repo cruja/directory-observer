@@ -20,12 +20,12 @@ public class QueueHandler implements Observer{
 	public void update(Observable o, Object arg) {
 		if (arg instanceof MessagePojo) {
 			MessagePojo msg = (MessagePojo)arg;
-			log.debug(String.format("The queue handler was informed that the file '%s' was %s", msg.getFile(), msg.getAction()));
+//			log.debug(String.format("The queue handler was informed that the file '%s' was %s", msg.getFile(), msg.getAction()));
 			try {
 				testQueue.put(msg);
+				log.info("Message posted in the queue");
 			} catch (InterruptedException e) {
-				log.debug(e.getMessage());
-				e.printStackTrace();
+				log.error(e.getMessage(), e);
 			}
 		}
 	}

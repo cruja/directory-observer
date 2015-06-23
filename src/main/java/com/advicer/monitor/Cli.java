@@ -50,11 +50,10 @@ public class Cli {
 			
 			//Creating the threads based on Runnable Interfaces implementations
 			Thread processor = new Thread(qp);
-			Thread handler = new Thread(scanner);
 			
 			//Starting threads
 			processor.start();
-			handler.start();
+			scanner.run();
 			
 		}
 		catch( ParseException exp ) {
